@@ -2,6 +2,45 @@ import { NextResponse } from 'next/server'
 import { verifyAuth } from '@/lib/auth/verify-auth'
 import type { NextRequest } from 'next/server'
 
+export async function GET(req: NextRequest) {
+  try {
+    const token = req.headers.get('authorization')?.split(' ')[1]
+    const payload = await verifyAuth(token)
+    if (!payload) {
+      return new NextResponse('Unauthorized', { status: 401 })
+    }
+
+    const { searchParams } = new URL(req.url)
+    const agentId = searchParams.get('agentId')
+
+    if (!agentId) {
+      return new NextResponse('Bad Request', { status: 400 })
+    }
+
+    const agent = await getAgentFromDatabase(agentId, payload.sub)
+
+    if (!agent) {
+      return new NextResponse('Not Found', { status: 404 })
+    }
+
+    return NextResponse.json(agent)
+  } catch (error) {
+    console.error('[AGENTS_GET]', error)
+    if (error.message === 'Token is blacklisted' || error.message === 'Invalid token type') {
+      return new NextResponse('Unauthorized', { status: 401 })
+    }
+    return new NextResponse('Internal Error', { status: 500 })
+  }
+}
+
+async function getAgentFromDatabase(agentId, userId) {
+  // Implement the logic to retrieve the agent from the database
+  // This is a placeholder function and should be replaced with actual database logic
+}
+import { NextResponse } from 'next/server'
+import { verifyAuth } from '@/lib/auth/verify-auth'
+import type { NextRequest } from 'next/server'
+
 export async function GET(req: NextRequest, { params }: { params: { agentId: string } }) {
   try {
     const token = req.headers.get('authorization')?.split(' ')[1]

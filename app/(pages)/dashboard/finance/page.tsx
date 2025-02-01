@@ -4,12 +4,10 @@ import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Calendar,
-  CreditCard,
   DollarSign,
   LineChart,
   PieChart,
-  TrendingUp,
-  Users
+  TrendingUp
 } from "lucide-react";
 
 export default function FinancePage() {
@@ -40,22 +38,8 @@ export default function FinancePage() {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Active Subscriptions</CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">843</div>
-            <div className="flex items-center gap-1 text-xs text-emerald-500">
-              <TrendingUp className="h-3 w-3" />
-              <span>+5.2% growth</span>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Avg. Transaction</CardTitle>
-            <CreditCard className="h-4 w-4 text-muted-foreground" />
+            <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">$49.99</div>
@@ -189,126 +173,6 @@ export default function FinancePage() {
               <PieChart className="h-4 w-4" />
               View Detailed Report
             </Button>
-          </CardFooter>
-        </Card>
-      </div>
-
-      {/* Subscription Analytics */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <Card className="lg:col-span-2 ">
-          <Tabs defaultValue="monthly" className="w-full">
-            <CardHeader className="flex flex-row items-center justify-between">
-              <div>
-                <CardTitle>Subscription Analytics</CardTitle>
-                <CardDescription>Track subscription performance</CardDescription>
-              </div>
-              <TabsList>
-                <TabsTrigger value="monthly">Monthly</TabsTrigger>
-                <TabsTrigger value="quarterly">Quarterly</TabsTrigger>
-                <TabsTrigger value="yearly">Yearly</TabsTrigger>
-              </TabsList>
-            </CardHeader>
-            <CardContent>
-              <TabsContent value="monthly" className="space-y-4">
-                <div className="grid gap-4 md:grid-cols-3">
-                  <div className="space-y-2">
-                    <p className="text-sm font-medium">New Subscriptions</p>
-                    <p className="text-2xl font-bold">+124</p>
-                    <p className="text-xs text-muted-foreground">Past 30 days</p>
-                  </div>
-                  <div className="space-y-2">
-                    <p className="text-sm font-medium">Churn Rate</p>
-                    <p className="text-2xl font-bold">2.4%</p>
-                    <p className="text-xs text-muted-foreground">Industry avg: 3.2%</p>
-                  </div>
-                  <div className="space-y-2">
-                    <p className="text-sm font-medium">Renewal Rate</p>
-                    <p className="text-2xl font-bold">94%</p>
-                    <p className="text-xs text-muted-foreground">+2% from last month</p>
-                  </div>
-                </div>
-              </TabsContent>
-              <TabsContent value="quarterly" className="space-y-4">
-                <div className="grid gap-4 md:grid-cols-3">
-                  <div className="space-y-2">
-                    <p className="text-sm font-medium">New Subscriptions</p>
-                    <p className="text-2xl font-bold">+486</p>
-                    <p className="text-xs text-muted-foreground">Past quarter</p>
-                  </div>
-                  <div className="space-y-2">
-                    <p className="text-sm font-medium">Churn Rate</p>
-                    <p className="text-2xl font-bold">2.1%</p>
-                    <p className="text-xs text-muted-foreground">Industry avg: 3.2%</p>
-                  </div>
-                  <div className="space-y-2">
-                    <p className="text-sm font-medium">Renewal Rate</p>
-                    <p className="text-2xl font-bold">96%</p>
-                    <p className="text-xs text-muted-foreground">+3% from last quarter</p>
-                  </div>
-                </div>
-              </TabsContent>
-              <TabsContent value="yearly" className="space-y-4">
-                <div className="grid gap-4 md:grid-cols-3">
-                  <div className="space-y-2">
-                    <p className="text-sm font-medium">New Subscriptions</p>
-                    <p className="text-2xl font-bold">+1,842</p>
-                    <p className="text-xs text-muted-foreground">Past year</p>
-                  </div>
-                  <div className="space-y-2">
-                    <p className="text-sm font-medium">Churn Rate</p>
-                    <p className="text-2xl font-bold">1.8%</p>
-                    <p className="text-xs text-muted-foreground">Industry avg: 3.2%</p>
-                  </div>
-                  <div className="space-y-2">
-                    <p className="text-sm font-medium">Renewal Rate</p>
-                    <p className="text-2xl font-bold">98%</p>
-                    <p className="text-xs text-muted-foreground">+5% from last year</p>
-                  </div>
-                </div>
-              </TabsContent>
-            </CardContent>
-          </Tabs>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Upcoming Payments</CardTitle>
-            <CardDescription>Next 7 days</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {[
-                {
-                  amount: "$299.00",
-                  description: "Enterprise Plan - Yearly",
-                  date: "Tomorrow"
-                },
-                {
-                  amount: "$49.99",
-                  description: "Team Plan - Monthly",
-                  date: "Jan 27"
-                },
-                {
-                  amount: "$149.00",
-                  description: "Business Plan - Quarterly",
-                  date: "Jan 29"
-                }
-              ].map((payment, i) => (
-                <div key={i} className="flex items-center justify-between">
-                  <div className="space-y-1">
-                    <p className="text-sm font-medium">{payment.amount}</p>
-                    <p className="text-xs text-muted-foreground">{payment.description}</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4 text-muted-foreground" />
-                    <span className="text-xs">{payment.date}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-          <CardFooter>
-            <Button variant="outline" className="w-full">View All Payments</Button>
           </CardFooter>
         </Card>
       </div>

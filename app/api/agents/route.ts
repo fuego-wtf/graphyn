@@ -27,6 +27,9 @@ export async function POST(req: NextRequest) {
       }
     }
 
+    // Save the agent to the database
+    await saveAgentToDatabase(agent);
+
     return NextResponse.json(agent)
   } catch (error) {
     console.error('[AGENTS_POST]', error)
@@ -35,4 +38,9 @@ export async function POST(req: NextRequest) {
     }
     return new NextResponse('Internal Error', { status: 500 })
   }
+}
+
+async function saveAgentToDatabase(agent) {
+  // Implement the logic to save the agent to the database
+  // This is a placeholder function and should be replaced with actual database logic
 }

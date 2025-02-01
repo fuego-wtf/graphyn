@@ -3,9 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Hero } from '@/components/sections/hero'
 import { Features } from '@/components/sections/features'
-import { Pricing } from '@/components/sections/pricing'
 import { UserControl } from '@/components/sections/user-control'
-import { CTA } from '@/components/sections/cta'
 import { Slideshow } from '@/components/sections/slideshow'
 import { Navigation } from '@/components/navigation'
 import { useAuth } from "@clerk/nextjs"
@@ -31,8 +29,6 @@ export default function Home() {
 				{showPitchDeck && <Slideshow onClose={() => setShowPitchDeck(false)} />}
 				<Features />
 				<UserControl />
-				<Pricing />
-				<CTA />
 			</div>
 		</div>
 	)
