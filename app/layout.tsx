@@ -3,6 +3,7 @@ import { fontSans } from '@/lib/fonts'
 import { ClerkProvider } from '@clerk/nextjs'
 import { Analytics } from '@vercel/analytics/react'
 import { ThemeProvider } from '@/components/theme-provider'
+import Provider from './provider'
 
 export default function RootLayout({
   children,
@@ -13,6 +14,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ClerkProvider>
+          <Provider>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -22,6 +24,7 @@ export default function RootLayout({
             {children}
             <Analytics />
           </ThemeProvider>
+          </Provider>
         </ClerkProvider>
       </body>
     </html>

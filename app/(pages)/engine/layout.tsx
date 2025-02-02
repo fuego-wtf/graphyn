@@ -1,4 +1,7 @@
+'use client'
+
 import { Sidebar } from "@/components/sidebar"
+import { ConversationProvider } from "@/components/engine/conversation-context"
 
 export default function EngineLayout({
 	children,
@@ -9,7 +12,9 @@ export default function EngineLayout({
 		<div className="min-h-screen flex">
 			<Sidebar />
 			<main className="flex-1">
-				{children}
+				<ConversationProvider>
+					{children}
+				</ConversationProvider>
 			</main>
 		</div>
 	)
