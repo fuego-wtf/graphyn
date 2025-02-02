@@ -1,7 +1,19 @@
-/** @type {import('next').NextConfig} */
-const createMDX = require('@next/mdx');
+import createMDX from '@next/mdx';
 
+/** @type {import('next').NextConfig} */
 const nextConfig = {
+	experimental: {
+		esmExternals: true,
+	},
+	webpack: (config, { isServer }) => {
+		if (!isServer) {
+			config.resolve.fallback = {
+				...config.resolve.fallback,
+				fs: false,
+			};
+		}
+		return config;
+	},
 	images: {
 		remotePatterns: [
 			{
@@ -41,4 +53,4 @@ const nextConfig = {
 
 const withMDX = createMDX({});
 
-module.exports = withMDX(nextConfig);
+export default withMDX(nextConfig);

@@ -1,17 +1,16 @@
-import { Toast } from "@/components/ui/toast"
+// Inspired by react-hot-toast library
+import { useState, useCallback, useEffect, type ReactNode } from "react"
 
 const TOAST_LIMIT = 1
 const TOAST_REMOVE_DELAY = 1000000
 
-type ToasterToast = {
+type ToastProps = {
 	id: string
 	title?: string
 	description?: string
 	action?: React.ReactNode
-	variant?: "default" | "destructive"
-	open?: boolean
-	onOpenChange?: (open: boolean) => void
 }
+
 
 const actionTypes = {
 	ADD_TOAST: "ADD_TOAST",
@@ -27,29 +26,27 @@ function genId() {
 	return count.toString()
 }
 
-type ActionType = typeof actionTypes
+type State = {
+	toasts: ToastProps[]
+}
 
 type Action =
 	| {
-			type: ActionType["ADD_TOAST"]
-			toast: ToasterToast
+			type: typeof actionTypes.ADD_TOAST
+			toast: ToastProps
 		}
 	| {
-			type: ActionType["UPDATE_TOAST"]
-			toast: Partial<ToasterToast>
+			type: typeof actionTypes.UPDATE_TOAST
+			toast: Partial<ToastProps> & Pick<ToastProps, "id">
 		}
 	| {
-			type: ActionType["DISMISS_TOAST"]
-			toastId?: ToasterToast["id"]
+			type: typeof actionTypes.DISMISS_TOAST
+			toastId?: ToastProps["id"]
 		}
 	| {
-			type: ActionType["REMOVE_TOAST"]
-			toastId?: ToasterToast["id"]
+			type: typeof actionTypes.REMOVE_TOAST
+			toastId?: ToastProps["id"]
 		}
-
-interface State {
-	toasts: ToasterToast[]
-}
 
 const toastTimeouts = new Map<string, ReturnType<typeof setTimeout>>()
 
@@ -61,7 +58,7 @@ const addToRemoveQueue = (toastId: string) => {
 	const timeout = setTimeout(() => {
 		toastTimeouts.delete(toastId)
 		dispatch({
-			type: "REMOVE_TOAST",
+			type: actionTypes.REMOVE_TOAST,
 			toastId: toastId,
 		})
 	}, TOAST_REMOVE_DELAY)
@@ -71,13 +68,13 @@ const addToRemoveQueue = (toastId: string) => {
 
 export const reducer = (state: State, action: Action): State => {
 	switch (action.type) {
-		case "ADD_TOAST":
+		case actionTypes.ADD_TOAST:
 			return {
 				...state,
 				toasts: [action.toast, ...state.toasts].slice(0, TOAST_LIMIT),
 			}
 
-		case "UPDATE_TOAST":
+		case actionTypes.UPDATE_TOAST:
 			return {
 				...state,
 				toasts: state.toasts.map((t) =>
@@ -85,7 +82,7 @@ export const reducer = (state: State, action: Action): State => {
 				),
 			}
 
-		case "DISMISS_TOAST": {
+		case actionTypes.DISMISS_TOAST: {
 			const { toastId } = action
 
 			if (toastId) {
@@ -102,13 +99,13 @@ export const reducer = (state: State, action: Action): State => {
 					t.id === toastId || toastId === undefined
 						? {
 								...t,
-								open: false,
 							}
 						: t
 				),
 			}
 		}
-		case "REMOVE_TOAST":
+
+		case actionTypes.REMOVE_TOAST:
 			if (action.toastId === undefined) {
 				return {
 					...state,
@@ -133,28 +130,25 @@ function dispatch(action: Action) {
 	})
 }
 
-export function toast({
-	...props
-}: Omit<ToasterToast, "id">) {
+type Toast = Omit<ToastProps, "id">
+
+function toast({ ...props }: Toast) {
 	const id = genId()
 
-	const update = (props: ToasterToast) =>
+	const update = (props: ToastProps) =>
 		dispatch({
-			type: "UPDATE_TOAST",
+			type: actionTypes.UPDATE_TOAST,
 			toast: { ...props, id },
 		})
-	const dismiss = () => dispatch({ type: "DISMISS_TOAST", toastId: id })
+	const dismiss = () => dispatch({ type: actionTypes.DISMISS_TOAST, toastId: id })
 
 	dispatch({
-		type: "ADD_TOAST",
+		type: actionTypes.ADD_TOAST,
 		toast: {
 			...props,
 			id,
-			open: true,
-			onOpenChange: (open) => {
-				if (!open) dismiss()
-			},
 		},
+
 	})
 
 	return {
@@ -164,9 +158,24 @@ export function toast({
 	}
 }
 
-export function useToast() {
+function useToast() {
+	const [state, setState] = useState<State>(memoryState)
+
+	useEffect(() => {
+		listeners.push(setState)
+		return () => {
+			const index = listeners.indexOf(setState)
+			if (index > -1) {
+				listeners.splice(index, 1)
+			}
+		}
+	}, [state])
+
 	return {
+		...state,
 		toast,
-		dismiss: (toastId?: string) => dispatch({ type: "DISMISS_TOAST", toastId }),
+		dismiss: (toastId?: string) => dispatch({ type: actionTypes.DISMISS_TOAST, toastId }),
 	}
 }
+
+export { useToast, toast }

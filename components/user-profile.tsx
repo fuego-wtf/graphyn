@@ -14,26 +14,22 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
-import config from "@/config"
 import { SignOutButton, useUser } from "@clerk/nextjs"
 import {
-    CreditCard,
     LogOut,
     Settings,
-    Sparkles,
     User
+
 } from "lucide-react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 import { Button } from "./ui/button"
 
 export function UserProfile() {
-    const router = useRouter()
+    const { user, isLoaded } = useUser();
 
-    if (!config?.auth?.enabled) {
-        router.back()
+    if (!isLoaded || !user) {
+        return null;
     }
-    const { user } = useUser();
 
     return (
         <DropdownMenu>
@@ -48,7 +44,8 @@ export function UserProfile() {
                     </Avatar>
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56" align="end">
+            <DropdownMenuContent className="w-56" align="end" forceMount>
+
                 <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
                         <p className="text-sm font-medium leading-none">{user?.fullName}</p>
@@ -59,28 +56,23 @@ export function UserProfile() {
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
-                    <Link href="/user-profile">
-                        <DropdownMenuItem className="focus:bg-blue-50 dark:focus:bg-blue-950">
+                    <DropdownMenuItem asChild>
+                        <Link href="/user-profile" className="w-full">
                             <User className="mr-2 h-4 w-4" />
                             <span>Profile</span>
-                        </DropdownMenuItem>
-                    </Link>
-                    <Link href="/dashboard/settings">
-                        <DropdownMenuItem className="focus:bg-blue-50 dark:focus:bg-blue-950">
+                        </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                        <Link href="/dashboard/settings" className="w-full">
                             <Settings className="mr-2 h-4 w-4" />
                             <span>Settings</span>
-                        </DropdownMenuItem>
-                    </Link>
-                    <Link href="/#pricing">
-                        <DropdownMenuItem className="focus:bg-blue-50 dark:focus:bg-blue-950">
-                            <Sparkles className="mr-2 h-4 w-4" />
-                            <span>Upgrade Plan</span>
-                        </DropdownMenuItem>
-                    </Link>
+                        </Link>
+                    </DropdownMenuItem>
+
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
                 <SignOutButton>
-                    <DropdownMenuItem className="focus:bg-blue-50 dark:focus:bg-blue-950">
+                    <DropdownMenuItem className="cursor-pointer">
                         <LogOut className="mr-2 h-4 w-4" />
                         <span>Log out</span>
                     </DropdownMenuItem>

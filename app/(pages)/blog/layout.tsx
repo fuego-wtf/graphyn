@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { ViewTransitions } from "next-view-transitions";
 import { Analytics } from "@vercel/analytics/react";
 import NavBar from "@/components/wrapper/navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+
   metadataBase: new URL("https://rasmic.xyz"),
   alternates: {
     canonical: "/",
@@ -20,13 +20,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <ViewTransitions>
+    <div>
       <NavBar />
-
       <div className="antialiased tracking-tight">
         <div className="min-h-screen flex flex-col justify-between pt-0 md:pt-8 p-8">
           <main className="max-w-[60ch] mt-[2rem] mx-auto w-full space-y-6">
@@ -36,9 +35,10 @@ export default function RootLayout({
           <Analytics />
         </div>
       </div>
-    </ViewTransitions>
+    </div>
   );
 }
+
 
 function Footer() {
   const links = [

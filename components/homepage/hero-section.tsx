@@ -2,7 +2,7 @@
 import { ArrowRight, Github, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 
 export default function HeroSection() {
   return (
@@ -47,8 +47,8 @@ export default function HeroSection() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto"
         >
-          Launch your SaaS in minutes with our production-ready Next.js starter
-          kit. Everything you need, from auth to payments.
+            Launch your SaaS in minutes with our production-ready Next.js starter
+            kit. Everything you need to build powerful applications.
         </motion.p>
 
         {/* CTA Buttons */}

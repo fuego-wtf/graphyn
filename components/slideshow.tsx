@@ -551,18 +551,17 @@ const slides = [
           <Card className="p-6">
             <ResponsiveContainer width="100%" height={250}>
               <BarChart data={[
-                { year: 'Start Y1', new: 400, churn: 0, total: 320 },
-                { year: 'Start Y2', new: 1200, churn: 384, total: 1136 },
-                { year: 'Start Y3', new: 3000, churn: 1231, total: 2905 }
+                { year: 'Y1', users: 400 },
+                { year: 'Y2', users: 1200 },
+                { year: 'Y3', users: 3000 }
               ]}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="year" />
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="new" name="New Customers" fill="#22c55e" />
-                <Bar dataKey="churn" name="Churned" fill="#ef4444" />
-                <Bar dataKey="total" name="Net Total" fill="#6366f1" />
+                <Line type="monotone" dataKey="users" name="Active Users" stroke="#6366f1" />
+
               </BarChart>
             </ResponsiveContainer>
             <div className="grid grid-cols-3 gap-4 mt-6">
@@ -632,9 +631,9 @@ const slides = [
                 <PieChart>
                   <Pie
                     data={[
-                      { name: 'Subscriptions', value: 75, fill: '#6366f1' },
-                      { name: 'Professional Services', value: 15, fill: '#22c55e' },
-                      { name: 'Add-On Features', value: 10, fill: '#f59e0b' }
+                        { name: 'Core Services', value: 75, fill: '#6366f1' },
+                        { name: 'Professional Services', value: 15, fill: '#22c55e' },
+                        { name: 'Additional Features', value: 10, fill: '#f59e0b' }
                     ]}
                     dataKey="value"
                     nameKey="name"
@@ -731,9 +730,9 @@ const slides = [
                 <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 w-2/3"></div>
                 <div className="absolute inset-y-0 border-l-2 border-black border-dashed" style={{ left: '66.67%' }}></div>
               </div>
-              <div className="text-xs text-muted-foreground">
-                Break-even point expected once subscription revenue scales past overheads
-              </div>
+                <div className="text-xs text-muted-foreground">
+                Break-even point expected once user growth reaches target milestones
+                </div>
             </div>
           </Card>
         </section>

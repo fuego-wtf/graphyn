@@ -290,54 +290,8 @@ export const businessPlanSlides: Slide[] = [
       </div>
     )
   },
-  {
-    id: "pricing",
-    title: "Pricing & Economics",
-    content: (
-      <div className="space-y-6">
-        <section>
-          <h2 className="text-2xl font-semibold mb-4">Simple Pricing</h2>
-          <MemoizedCard className="p-6">
-            <div className="text-center">
-              <div className="text-5xl font-bold text-primary">$300</div>
-              <div className="text-sm text-muted-foreground mt-1">per month</div>
-              <div className="mt-6 space-y-2">
-                <div className="flex items-center gap-2 justify-center">
-                  <Check className="h-4 w-4 text-green-500" />
-                  <span>Instant Graph Insights</span>
-                </div>
-                <div className="flex items-center gap-2 justify-center">
-                  <Check className="h-4 w-4 text-green-500" />
-                  <span>Free trial period</span>
-                </div>
-                <div className="flex items-center gap-2 justify-center">
-                  <Check className="h-4 w-4 text-green-500" />
-                  <span>Add-ons available as needed</span>
-                </div>
-              </div>
-            </div>
-          </MemoizedCard>
 
-    </section>
 
-    <section>
-      <h2 className="text-2xl font-semibold mb-4">Rationale</h2>
-      <div className="space-y-4">
-        <MemoizedCard className="p-4">
-          <p className="text-muted-foreground">
-            Keeping it simple. If demand soars for specialized features, we'll spin off or price them separately.
-          </p>
-        </MemoizedCard>
-        <MemoizedCard className="p-4">
-          <p className="text-muted-foreground">
-            Right now, we want to learn if anyone values the MVP enough to pay $300/month.
-          </p>
-        </MemoizedCard>
-      </div>
-    </section>
-      </div>
-    )
-  },
   {
     id: "roadmap",
     title: "6-Month Roadmap",
@@ -402,7 +356,7 @@ export const businessPlanSlides: Slide[] = [
               </p>
               <div className="mt-4 flex items-center gap-2">
                 <DollarSign className="h-4 w-4 text-green-500" />
-                <span className="text-sm font-medium">Target: 400 paying customers</span>
+                <span className="text-sm font-medium">Target: 400 active customers</span>
               </div>
             </MemoizedCard>
             <MemoizedCard className="p-4 border-l-4 border-l-blue-500">

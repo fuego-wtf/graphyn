@@ -31,7 +31,6 @@
 	- Sign In: `app/(auth)/sign-in`
 	- Sign Up: `app/(auth)/sign-up`
 - Main Features
-	- Dashboard: `app/(pages)/dashboard`
 	- Engine: `app/(pages)/engine`
 	- Business Plan: `app/(pages)/business-plan`
 	- Playground: `app/(pages)/playground`

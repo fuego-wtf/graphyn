@@ -25,8 +25,8 @@ export default function Footer() {
             { name: 'Features', href: '/features' },
             { name: 'Documentation', href: '/docs' },
             { name: 'Examples', href: '/examples' },
-            { name: 'Pricing', href: '/pricing' },
         ],
+
         company: [
             { name: 'About', href: '/about' },
             { name: 'Blog', href: '/blog' },
@@ -52,7 +52,7 @@ export default function Footer() {
                         </Link>
                         <p className="text-sm text-gray-600 dark:text-gray-400 max-w-sm">
                             Launch your SaaS in minutes with our production-ready Next.js starter kit.
-                            Everything you need, from auth to payments.
+                            Everything you need to build powerful applications.
                         </p>
                         <div className="flex space-x-4">
                             <Link href="https://github.com/michaelshimeles/nextjs14-starter-template" target="_blank">
