@@ -20,3 +20,11 @@ learnings: created comprehensive guides for core features; improved api document
 [2024-03-19] suspense option is not valid in latest tanstack query client options, removed from provider config 
 
 [2024-03-27 20:45] removed untracked hotdocs directory 
+
+[2024-02-03 01:18] fixed punycode deprecation warning by adding webpack alias configuration in next.config.mjs
+- added config.resolve.alias to disable punycode module
+- this is a common issue in next.js projects when using node 20+ 
+
+[2024-02-03 01:20] clerk auth package shows edge runtime warnings
+- warnings about setImmediate, MessageChannel, MessageEvent
+- safe to ignore when not using edge runtime 

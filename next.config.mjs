@@ -12,6 +12,10 @@ const nextConfig = {
 				fs: false,
 			};
 		}
+		config.resolve.alias = {
+			...config.resolve.alias,
+			punycode: false,
+		};
 		return config;
 	},
 	images: {
