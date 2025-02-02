@@ -7,13 +7,21 @@ import { Button } from "@/components/ui/button"
 import { ModeToggle } from "@/components/mode-toggle"
 import { Profile } from "@/components/profile"
 
-export function Navigation({ onPitchDeck }: { onPitchDeck: () => void }) {
+interface NavigationProps {
+  onPitchDeck: () => void
+  brand: {
+    name: string
+    description: string
+  }
+}
+
+export function Navigation({ onPitchDeck, brand }: NavigationProps) {
   const { isSignedIn } = useAuth()
 
   return (
     <nav className="fixed top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border/40">
       <div className="container flex h-14 items-center justify-between">
-        <Brand />
+        <Brand name={brand.name} description={brand.description} />
         <div className="flex items-center gap-4">
           {!isSignedIn && (
             <>

@@ -119,7 +119,7 @@ export const businessPlanSlides: Slide[] = [
                     <div className="bg-muted/50 p-4 rounded-lg backdrop-blur-sm">
                         <h3 className="text-base font-medium mb-2">Instant Graph Insights</h3>
                         <p className="text-sm text-muted-foreground/90">
-                            A quick, visually compelling way to see user journeys across channels. If this doesn't make potential users say "Wow, I need that," we pivot.
+                            A quick, visually compelling way to see user journeys across channels. If this doesn&apos;t make potential users say &quot;Wow, I need that,&quot; we pivot.
                         </p>
                     </div>
                 </section>
@@ -273,7 +273,7 @@ export const businessPlanSlides: Slide[] = [
                 <h3 className="font-medium">LLM Actions</h3>
               </div>
               <p className="text-sm text-muted-foreground">
-                For early adopters who want to test AI automations (e.g., "Offer 10% discount if churn risk is high")
+                For early adopters who want to test AI automations (e.g., &quot;Offer 10% discount if churn risk is high&quot;)
               </p>
             </MemoizedCard>
             <MemoizedCard className="p-4">
@@ -282,7 +282,7 @@ export const businessPlanSlides: Slide[] = [
                 <h3 className="font-medium">User Control Panel</h3>
               </div>
               <p className="text-sm text-muted-foreground">
-                For companies that want to show end users their "data footprints" and handle deletion requests
+                For companies that want to show end users their &quot;data footprints&quot; and handle deletion requests
               </p>
             </MemoizedCard>
           </div>
@@ -330,7 +330,7 @@ export const businessPlanSlides: Slide[] = [
           <MemoizedCard className="p-4 bg-muted/50">
             <h3 className="text-base font-medium mb-2">Why No Long-Term Plan?</h3>
             <p className="text-sm text-muted-foreground/90">
-              Because if the MVP doesn't resonate in these 6 months, we'll change direction.
+                Because if the MVP doesn&apos;t resonate in these 6 months, we&apos;ll change direction.
             </p>
           </MemoizedCard>
         </div>
@@ -365,7 +365,7 @@ export const businessPlanSlides: Slide[] = [
                 <h3 className="font-medium">Value Proposition</h3>
               </div>
               <p className="text-sm text-muted-foreground">
-                "One-click" data environment that saves founders engineering overhead
+                &quot;One-click&quot; data environment that saves founders engineering overhead
               </p>
               <div className="mt-4 flex items-center gap-2">
                 <TrendingUp className="h-4 w-4 text-green-500" />

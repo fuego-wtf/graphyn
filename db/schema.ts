@@ -5,6 +5,10 @@ export const users = pgTable("users", {
   createdTime: timestamp("created_time").defaultNow(),
   userId: text("user_id").unique(),
   email: text("email"),
+  firstName: text("first_name"),
+  lastName: text("last_name"),
+  profileImageUrl: text("profile_image_url"),
 });
+
 
 

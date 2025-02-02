@@ -64,7 +64,7 @@ async function sleep(ms: number) {
 export async function fetchClient(url: string, options: FetchOptions = {}) {
 	const {
 		requireAuth = true,
-		headers = {},
+		headers: initialHeaders = {},
 		timeout = DEFAULT_TIMEOUT,
 		retries = DEFAULT_RETRIES,
 		retryDelay = DEFAULT_RETRY_DELAY,
@@ -74,6 +74,8 @@ export async function fetchClient(url: string, options: FetchOptions = {}) {
 	let attempt = 0;
 	while (attempt <= retries) {
 		try {
+			let requestHeaders = { ...initialHeaders };
+			
 			if (requireAuth) {
 				let tokens = await getStoredTokens();
 				if (!tokens) {
@@ -86,14 +88,17 @@ export async function fetchClient(url: string, options: FetchOptions = {}) {
 					tokens = await refreshTokens(tokens.refreshToken);
 				}
 
-				headers['Authorization'] = `Bearer ${tokens.accessToken}`;
+				requestHeaders = {
+					...requestHeaders,
+					Authorization: `Bearer ${tokens.accessToken}`
+				};
 			}
 
 			const response = await fetchWithTimeout(url, {
 				...rest,
 				headers: {
 					'Content-Type': 'application/json',
-					...headers
+					...requestHeaders
 				},
 				timeout
 			});

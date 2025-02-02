@@ -53,8 +53,8 @@ export function AgentSettings({ agentId }: AgentSettingsProps) {
 
       if (!response.ok) throw new Error("Failed to update settings")
 
-      const updatedAgent = await response.json()
-      updateAgent(updatedAgent)
+        const updatedAgent = await response.json()
+        updateAgent(agentId, updatedAgent)
       toast({
         title: "settings updated",
         description: "agent settings have been saved successfully"

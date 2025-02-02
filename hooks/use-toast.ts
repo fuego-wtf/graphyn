@@ -9,7 +9,9 @@ type ToastProps = {
 	title?: string
 	description?: string
 	action?: React.ReactNode
+	variant?: "default" | "destructive"
 }
+
 
 
 const actionTypes = {
@@ -130,7 +132,12 @@ function dispatch(action: Action) {
 	})
 }
 
-type Toast = Omit<ToastProps, "id">
+type Toast = {
+	title?: string
+	description?: string
+	action?: React.ReactNode
+	variant?: "default" | "destructive"
+}
 
 function toast({ ...props }: Toast) {
 	const id = genId()

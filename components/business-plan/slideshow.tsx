@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { ChevronLeft, ChevronRight, Maximize2, Minimize2, Moon, Sun, HelpCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -21,19 +21,19 @@ export function BusinessPlanSlideshow() {
   const scrollAreaRef = useRef<HTMLDivElement>(null)
 
   // Enhanced navigation functions
-  const goToNextSlide = () => {
+  const goToNextSlide = useCallback(() => {
     if (currentSlide < businessPlanSlides.length - 1) {
       setSlideDirection('right')
       setCurrentSlide(prev => prev + 1)
     }
-  }
+  }, [currentSlide])
 
-  const goToPreviousSlide = () => {
+  const goToPreviousSlide = useCallback(() => {
     if (currentSlide > 0) {
       setSlideDirection('left')
       setCurrentSlide(prev => prev - 1)
     }
-  }
+  }, [currentSlide])
 
   // Swipe navigation
   const [touchStart, setTouchStart] = useState<number | null>(null)

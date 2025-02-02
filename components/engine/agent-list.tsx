@@ -27,7 +27,7 @@ export function AgentList() {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
         <Link href="/engine/agents/new">
-          <Button variant="primary">Create Agent</Button>
+          <Button variant="default">Create Agent</Button>
         </Link>
       </div>
       <div className="border rounded-lg dark:border-gray-700">

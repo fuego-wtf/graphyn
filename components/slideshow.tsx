@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -245,9 +245,9 @@ const slides = [
                 <Zap className="h-5 w-5 text-blue-500" />
                 <h3 className="font-medium">Value Proposition</h3>
               </div>
-              <p className="text-sm text-muted-foreground">
-                "One-click" data environment that saves founders engineering overhead
-              </p>
+                <p className="text-sm text-muted-foreground">
+                &quot;One-click&quot; data environment that saves founders engineering overhead
+                </p>
               <div className="mt-4 flex items-center gap-2">
                 <TrendingUp className="h-4 w-4 text-green-500" />
                 <span className="text-sm font-medium">9.6M TRY ARR Goal</span>
@@ -761,19 +761,19 @@ export function Slideshow({ onAllDone }: SlideshowProps) {
   const containerRef = useRef<HTMLDivElement>(null)
 
   // Navigation functions
-  const goToNextSlide = () => {
+  const goToNextSlide = useCallback(() => {
     if (currentSlide < slides.length - 1) {
       setCurrentSlide(prev => prev + 1)
     } else if (onAllDone) {
       onAllDone()
     }
-  }
+  }, [currentSlide, onAllDone])
 
-  const goToPreviousSlide = () => {
+  const goToPreviousSlide = useCallback(() => {
     if (currentSlide > 0) {
       setCurrentSlide(prev => prev - 1)
     }
-  }
+  }, [currentSlide])
 
   // Keyboard navigation
   useEffect(() => {
@@ -787,7 +787,7 @@ export function Slideshow({ onAllDone }: SlideshowProps) {
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [currentSlide])
+  }, [goToNextSlide, goToPreviousSlide])
 
   // Fullscreen handling
   const toggleFullscreen = () => {

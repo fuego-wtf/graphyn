@@ -4,29 +4,33 @@ import { Button } from "@/components/ui/button"
 import { Download, History, Trash2 } from "lucide-react"
 import { motion } from "framer-motion"
 
-const controls = [
-  {
-    id: 'viewHistory',
-    icon: History,
-    title: 'View History',
-    description: 'Access your complete interaction history with AI agents.',
-    action: 'View History'
-  },
-  {
-    id: 'exportData',
-    icon: Download,
-    title: 'Export Data',
-    description: 'Download your data in a structured format for backup or analysis.',
-    action: 'Export Now'
-  },
-  {
-    id: 'deleteData',
-    icon: Trash2,
-    title: 'Delete Data',
-    description: 'Permanently remove selected data from your account.',
-    action: 'Manage Data'
+const controlIcons = {
+  viewHistory: History,
+  exportData: Download,
+  deleteData: Trash2,
+} as const
+
+interface UserControlProps {
+  title: string
+  subtitle: string
+  controls: {
+    viewHistory: {
+      title: string
+      description: string
+      action: string
+    }
+    exportData: {
+      title: string
+      description: string
+      action: string
+    }
+    deleteData: {
+      title: string
+      description: string
+      action: string
+    }
   }
-] as const
+}
 
 const container = {
   hidden: { opacity: 0 },
@@ -41,7 +45,25 @@ const item = {
   show: { opacity: 1, y: 0 }
 }
 
-export function UserControl() {
+export function UserControl({ title, subtitle, controls }: UserControlProps) {
+  const controlsList = [
+    {
+      id: "viewHistory",
+      icon: controlIcons.viewHistory,
+      ...controls.viewHistory
+    },
+    {
+      id: "exportData",
+      icon: controlIcons.exportData,
+      ...controls.exportData
+    },
+    {
+      id: "deleteData",
+      icon: controlIcons.deleteData,
+      ...controls.deleteData
+    }
+  ] as const
+
   return (
     <section className="container py-24">
       <motion.div
@@ -52,10 +74,10 @@ export function UserControl() {
         className="mx-auto max-w-2xl text-center"
       >
         <h2 className="bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-3xl font-bold tracking-tight text-transparent sm:text-4xl">
-          You're in Control
-        </h2>
-        <p className="mt-6 text-lg leading-8 text-muted-foreground">
-          Manage your AI interactions and data with complete transparency and control.
+            {title}
+          </h2>
+          <p className="mt-6 text-lg leading-8 text-muted-foreground">
+            {subtitle}
         </p>
       </motion.div>
 
@@ -67,7 +89,7 @@ export function UserControl() {
         className="mx-auto mt-16 max-w-7xl"
       >
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {controls.map((control) => {
+            {controlsList.map((control) => {
             const Icon = control.icon
             return (
               <motion.div

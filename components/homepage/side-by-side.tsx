@@ -2,7 +2,7 @@
 import { Computer, Network, Sparkles } from 'lucide-react'
 import { FaBusinessTime } from 'react-icons/fa'
 import { OrbitingCirclesComponent } from './orbiting-circles'
-import { motion } from "motion/react"
+import { motion } from "framer-motion"
 
 const features = [
   {
