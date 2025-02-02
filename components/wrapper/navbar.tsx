@@ -31,18 +31,9 @@ const components: { title: string; href: string; description: string }[] = [
     title: "AI Playground",
     href: "/playground",
     description: "Interact with the AI in the playground.",
-  },
-  {
-    title: "Dashboard",
-    href: "/dashboard",
-    description: "Access your personal dashboard.",
-  },
-  {
-    title: "Blog",
-    href: "/blog",
-    description: "Read my interesting blog posts.",
-  },
+  }
 ];
+
 
 export default function NavBar() {
   const user = useAuth();
@@ -165,41 +156,39 @@ export default function NavBar() {
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center gap-6">
           <NavigationMenu>
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                    {components.map((component) => (
-                      <ListItem
-                        key={component.title}
-                        title={component.title}
-                        href={component.href}
-                      >
-                        {component.description}
-                      </ListItem>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-            </NavigationMenuList>
+          <NavigationMenuList>
+            <NavigationMenuItem>
+            <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+              {components.map((component) => (
+                <ListItem
+                key={component.title}
+                title={component.title}
+                href={component.href}
+                >
+                {component.description}
+                </ListItem>
+              ))}
+              </ul>
+            </NavigationMenuContent>
+            </NavigationMenuItem>
+          </NavigationMenuList>
           </NavigationMenu>
 
-          <Link href="/dashboard" prefetch={true}>
-            <Button variant="ghost">Dashboard</Button>
-          </Link>
           <Link href="/playground" prefetch={true}>
-            <Button variant="ghost">AI Playground</Button>
+          <Button variant="ghost">AI Playground</Button>
           </Link>
           <Link
-            href="https://github.com/michaelshimeles/nextjs14-starter-template"
-            prefetch={true}
+          href="https://github.com/michaelshimeles/nextjs14-starter-template"
+          prefetch={true}
           >
-            <Button variant="ghost" size="icon">
-              <Github className="h-5 w-5" />
-            </Button>
+          <Button variant="ghost" size="icon">
+            <Github className="h-5 w-5" />
+          </Button>
           </Link>
         </div>
+
 
         {/* Right Side */}
         <div className="flex items-center gap-2">

@@ -6,10 +6,10 @@ import { Features } from '@/components/sections/features'
 import { UserControl } from '@/components/sections/user-control'
 import { Slideshow } from '@/components/sections/slideshow'
 import { Navigation } from '@/components/navigation'
+import Footer from '@/components/wrapper/footer'
 import { useAuth } from "@clerk/nextjs"
 import { useRouter } from 'next/navigation'
 import { routes } from '@/config/routes'
-import { brand } from '@/components/brand'
 
 export default function Home() {
 	const [showPitchDeck, setShowPitchDeck] = useState(false)
@@ -37,7 +37,7 @@ export default function Home() {
 					description="Graphyn provides a powerful SDK for seamless integration of personalized, context-aware features in your applications"
 					actions={{
 						primary: "Get started",
-						secondary: "How it works"
+						secondary: "Why do we exist?"
 					}}
 				/>
 				{showPitchDeck && <Slideshow onClose={() => setShowPitchDeck(false)} />}
@@ -81,6 +81,7 @@ export default function Home() {
 					}}
 				/>
 			</div>
+			<Footer />
 		</div>
 	)
 }

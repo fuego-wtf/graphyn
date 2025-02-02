@@ -33,7 +33,7 @@ export function Hero({ title, description, actions }: HeroProps) {
               {actions.primary}
             </Link>
             <Link
-              href="/how-it-works"
+                href="/business-plan"
               className="text-sm font-semibold leading-6"
             >
               {actions.secondary}

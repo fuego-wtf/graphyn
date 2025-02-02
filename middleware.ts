@@ -5,9 +5,11 @@ export default authMiddleware({
 		"/",
 		"/sign-in",
 		"/sign-up",
-		"/how-it-works",
 		"/business-plan",
 		"/api/webhook(.*)",
+		"/engine",
+		"/engine/agents",
+		"/engine/agents/new"
 	],
 });
 

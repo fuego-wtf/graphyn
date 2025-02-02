@@ -58,7 +58,7 @@ export default function HeroSection() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="flex flex-wrap justify-center items-center gap-4 pt-4"
         >
-          <Link href="/dashboard">
+            <Link href="/engine">
             <Button
               size="lg"
               className="bg-blue-600 hover:bg-blue-500 text-white rounded-full px-8 h-12"
@@ -66,13 +66,13 @@ export default function HeroSection() {
               Get Started
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
-          </Link>
+            </Link>
 
-          <Link
+            <Link
             href="https://discord.gg/HUcHdrrDgY"
             target="_blank"
             aria-label="Join Discord (opens in a new tab)"
-          >
+            >
             <Button
               variant="outline"
               size="lg"
@@ -81,17 +81,17 @@ export default function HeroSection() {
               Join Discord
               <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
             </Button>
-          </Link>
+            </Link>
 
-          <Link
+            <Link
             href="https://github.com/michaelshimeles/nextjs14-starter-template"
             target="_blank"
             className="flex items-center gap-2 rounded-full px-6 py-2 h-12 border-2 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
             aria-label="View on GitHub"
-          >
+            >
             <Github className="w-5 h-5" aria-hidden="true" />
             <span>Star on GitHub</span>
-          </Link>
+            </Link>
         </motion.div>
       </div>
     </section>

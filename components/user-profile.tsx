@@ -57,19 +57,13 @@ export function UserProfile() {
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
                     <DropdownMenuItem asChild>
-                        <Link href="/user-profile" className="w-full">
+                        <Link href="/sign-in/[[...sign-in]]" className="w-full">
                             <User className="mr-2 h-4 w-4" />
                             <span>Profile</span>
                         </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                        <Link href="/dashboard/settings" className="w-full">
-                            <Settings className="mr-2 h-4 w-4" />
-                            <span>Settings</span>
-                        </Link>
-                    </DropdownMenuItem>
-
                 </DropdownMenuGroup>
+
                 <DropdownMenuSeparator />
                 <SignOutButton>
                     <DropdownMenuItem className="cursor-pointer">

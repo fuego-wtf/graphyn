@@ -5,12 +5,14 @@ A modern AI agent platform with graph-based memory and context-aware interaction
 ## Features
 
 ### Core Platform
+
 - 🧠 **AI Agents** - Configurable agents with memory and context
 - 📊 **Graph Memory** - Relationship-based memory storage
 - 🔄 **Event System** - Real-time event processing
 - 🎮 **Playground** - Interactive agent testing environment
 
 ### Technology Stack
+
 - ⚡ **Next.js 14** - App Router with Server Components
 - 🎨 **Tailwind CSS** - Custom UI components and animations
 - 📘 **TypeScript** - Full type safety
@@ -19,6 +21,7 @@ A modern AI agent platform with graph-based memory and context-aware interaction
 - 📈 **State** - Zustand + React Query
 
 ### Developer Experience
+
 - 🎭 **UI Components** - Shadcn/ui + Custom Components
 - 🌓 **Theming** - Dark/Light mode with custom colors
 - 📱 **Responsive** - Mobile-first design
@@ -28,6 +31,7 @@ A modern AI agent platform with graph-based memory and context-aware interaction
 ## Getting Started
 
 1. Clone and install:
+
 ```bash
 git clone https://github.com/yourusername/graphyn.git
 cd graphyn
@@ -35,11 +39,13 @@ yarn install
 ```
 
 2. Set up environment:
+
 ```bash
 cp .env.template .env
 ```
 
 3. Configure environment variables:
+
 ```env
 # Auth (Clerk)
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
@@ -53,6 +59,7 @@ OPENAI_API_KEY=
 ```
 
 4. Start development:
+
 ```bash
 yarn dev
 ```
@@ -82,5 +89,3 @@ yarn dev
 ## License
 
 MIT
-
-
