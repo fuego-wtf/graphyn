@@ -1,50 +1,25 @@
 "server only";
 
-import config from "@/config";
-import { db } from "@/db/drizzle";
 import { users } from "@/db/schema";
-import { clerkClient } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
+import { db } from "@/db/drizzle";
+import config from "@/config";
 
-export const isAuthorized = async (
-  userId: string
-): Promise<{ authorized: boolean; message: string }> => {
-  console.log("GET HIT")
-  if (!config?.payments?.enabled) {
-    console.log("Payments are disabled")
-    return {
-      authorized: true,
-      message: "Payments are disabled",
-    };
-  }
-
-  const result = (await clerkClient()).users.getUser(userId);
-
-  if (!result) {
-    return {
-      authorized: false,
-      message: "User not found",
-    };
+export async function isAuthorized(userId: string) {
+  if (!config?.auth?.enabled) {
+    console.log("Auth is disabled");
+    return { isAuthorized: true };
   }
 
   try {
     const data = await db.select().from(users).where(eq(users.userId, userId));
-
-    if (data?.[0]?.subscription) {
-      return {
-        authorized: true,
-        message: "User is authorized",
-      };
-    }
-
     return {
-      authorized: false,
-      message: "User is not subscribed",
+      isAuthorized: true,
+      user: data?.[0]
     };
-  } catch (error: any) {
-    return {
-      authorized: false,
-      message: error.message,
-    };
+  } catch (error) {
+    console.error("Error checking authorization:", error);
+    return { isAuthorized: false };
   }
-};
+}
+

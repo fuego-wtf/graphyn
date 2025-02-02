@@ -14,8 +14,9 @@ import { Dialog } from "@radix-ui/react-dialog";
 import { motion } from "framer-motion";
 import { Github, Menu, Sparkles, Twitter, Youtube } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import * as React from "react";
-import ModeToggle from "../mode-toggle";
+import { ModeToggle } from "../mode-toggle";
 import { Button } from "../ui/button";
 import {
   SheetContent,
@@ -30,18 +31,9 @@ const components: { title: string; href: string; description: string }[] = [
     title: "AI Playground",
     href: "/playground",
     description: "Interact with the AI in the playground.",
-  },
-  {
-    title: "Dashboard",
-    href: "/dashboard",
-    description: "Access your personal dashboard.",
-  },
-  {
-    title: "Blog",
-    href: "/blog",
-    description: "Read my interesting blog posts.",
-  },
+  }
 ];
+
 
 export default function NavBar() {
   const user = useAuth();
@@ -164,41 +156,39 @@ export default function NavBar() {
         {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center gap-6">
           <NavigationMenu>
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                    {components.map((component) => (
-                      <ListItem
-                        key={component.title}
-                        title={component.title}
-                        href={component.href}
-                      >
-                        {component.description}
-                      </ListItem>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-            </NavigationMenuList>
+          <NavigationMenuList>
+            <NavigationMenuItem>
+            <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
+            <NavigationMenuContent>
+              <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+              {components.map((component) => (
+                <ListItem
+                key={component.title}
+                title={component.title}
+                href={component.href}
+                >
+                {component.description}
+                </ListItem>
+              ))}
+              </ul>
+            </NavigationMenuContent>
+            </NavigationMenuItem>
+          </NavigationMenuList>
           </NavigationMenu>
 
-          <Link href="/dashboard" prefetch={true}>
-            <Button variant="ghost">Dashboard</Button>
-          </Link>
           <Link href="/playground" prefetch={true}>
-            <Button variant="ghost">AI Playground</Button>
+          <Button variant="ghost">AI Playground</Button>
           </Link>
           <Link
-            href="https://github.com/michaelshimeles/nextjs14-starter-template"
-            prefetch={true}
+          href="https://github.com/michaelshimeles/nextjs14-starter-template"
+          prefetch={true}
           >
-            <Button variant="ghost" size="icon">
-              <Github className="h-5 w-5" />
-            </Button>
+          <Button variant="ghost" size="icon">
+            <Github className="h-5 w-5" />
+          </Button>
           </Link>
         </div>
+
 
         {/* Right Side */}
         <div className="flex items-center gap-2">
@@ -214,9 +204,14 @@ export default function NavBar() {
             </Link>
           )}
           {userId && <UserProfile />}
-          <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fmichaelshimeles%2Fnextjs-starter-kit&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,CLERK_SECRET_KEY,NEXT_PUBLIC_CLERK_SIGN_IN_URL,NEXT_PUBLIC_CLERK_SIGN_UP_URL,NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL,NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL,DATABASE_URL,NEXT_PUBLIC_BASE_URL,OPENAI_API_KEY&envDescription=You'll%20need%20api%20keys%20from%20Clerk%20Auth%2C%20Neon%20Postgres%2C%20%26%20OpenAI&project-name=next-starter&repository-name=next-starter&redirect-url=https%3A%2F%2Fwww.nextstarter.xyz%2F&demo-title=Next%20Starter&demo-description=The%20Ultimate%20Nextjs%2015%20Starter%20Kit%20for%20quickly%20building%20your%20SaaS%2C%20giving%20you%20time%20to%20focus%20on%20what%20really%20matters&demo-url=https%3A%2F%2Fwww.nextstarter.xyz%2F&demo-image=https%3A%2F%2Fdwdwn8b5ye.ufs.sh%2Ff%2FMD2AM9SEY8GucGJl7b5qyE7FjNDKYduLOG2QHWh3f5RgSi0c">
-            <img src="https://vercel.com/button" alt="Deploy with Vercel" />
-          </a>
+            <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fmichaelshimeles%2Fnextjs-starter-kit&env=NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,CLERK_SECRET_KEY,NEXT_PUBLIC_CLERK_SIGN_IN_URL,NEXT_PUBLIC_CLERK_SIGN_UP_URL,NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL,NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL,DATABASE_URL,NEXT_PUBLIC_BASE_URL,OPENAI_API_KEY&envDescription=You'll%20need%20api%20keys%20from%20Clerk%20Auth%2C%20Neon%20Postgres%2C%20%26%20OpenAI&project-name=next-starter&repository-name=next-starter&redirect-url=https%3A%2F%2Fwww.nextstarter.xyz%2F&demo-title=Next%20Starter&demo-description=The%20Ultimate%20Nextjs%2015%20Starter%20Kit%20for%20quickly%20building%20your%20SaaS%2C%20giving%20you%20time%20to%20focus%20on%20what%20really%20matters&demo-url=https%3A%2F%2Fwww.nextstarter.xyz%2F&demo-image=https%3A%2F%2Fdwdwn8b5ye.ufs.sh%2Ff%2FMD2AM9SEY8GucGJl7b5qyE7FjNDKYduLOG2QHWh3f5RgSi0c">
+            <Image 
+              src="https://vercel.com/button" 
+              alt="Deploy with Vercel" 
+              width={92}
+              height={32}
+            />
+            </a>
         </div>
       </div>
     </motion.div>

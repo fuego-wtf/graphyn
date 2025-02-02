@@ -1,50 +1,63 @@
-// Mock in-memory storage
-const store = new Map<string, { value: string; expiry: number | null }>();
+import { Redis } from '@upstash/redis'
+import { Agent } from '@/types/agent'
 
-// Mock Redis client implementation
+const redis = new Redis({
+	url: process.env.UPSTASH_REDIS_REST_URL!,
+	token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+})
+
+// Base Redis operations
 export async function getRedisClient() {
-	return null; // Not needed for mock
+	return redis
 }
 
 export async function setWithTTL(key: string, value: string, ttlSeconds: number) {
-	const expiry = ttlSeconds ? Date.now() + (ttlSeconds * 1000) : null;
-	store.set(key, { value, expiry });
+	await redis.set(key, value, { ex: ttlSeconds })
 }
 
 export async function get(key: string) {
-	const item = store.get(key);
-	if (!item) return null;
-	
-	if (item.expiry && item.expiry < Date.now()) {
-		store.delete(key);
-		return null;
-	}
-	
-	return item.value;
+	return redis.get(key)
 }
 
 export async function del(key: string) {
-	store.delete(key);
+	await redis.del(key)
 }
 
+// Agent-specific operations
+export async function saveAgent(agent: Agent) {
+	const key = `agent:${agent.id}`
+	await redis.set(key, JSON.stringify(agent))
+	await redis.sadd(`user:${agent.userId}:agents`, agent.id)
+	return agent
+}
+
+export async function getAgent(agentId: string) {
+	const agent = await redis.get(`agent:${agentId}`)
+	return agent ? JSON.parse(agent as string) : null
+}
+
+export async function getUserAgents(userId: string) {
+	const agentIds = await redis.smembers(`user:${userId}:agents`)
+	const agents = await Promise.all(
+		agentIds.map(id => getAgent(id))
+	)
+	return agents.filter(Boolean)
+}
+
+export async function deleteAgent(agentId: string, userId: string) {
+	await redis.del(`agent:${agentId}`)
+	await redis.srem(`user:${userId}:agents`, agentId)
+}
+
+// Auth operations
 export async function addToBlacklist(token: string, expiryTimestamp: number) {
-	const ttl = Math.ceil((expiryTimestamp - Date.now()) / 1000);
+	const ttl = Math.ceil((expiryTimestamp - Date.now()) / 1000)
 	if (ttl > 0) {
-		await setWithTTL(`blacklist:${token}`, '1', ttl);
+		await setWithTTL(`blacklist:${token}`, '1', ttl)
 	}
 }
 
 export async function isBlacklisted(token: string) {
-	const value = await get(`blacklist:${token}`);
-	return value !== null;
+	const value = await get(`blacklist:${token}`)
+	return value !== null
 }
-
-// Cleanup expired keys periodically
-setInterval(() => {
-	// Convert Map entries to array before iteration
-	Array.from(store).forEach(([key, item]) => {
-		if (item.expiry && item.expiry < Date.now()) {
-			store.delete(key);
-		}
-	});
-}, 60000); // Clean up every minute

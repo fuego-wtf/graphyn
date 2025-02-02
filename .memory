@@ -1,0 +1,8 @@
+commit logs:
+- nav update: revised nav config
+- sidebar update: fixed sidebar links
+- backend api: updated backend docs
+- frontend api: updated frontend docs
+- arch docs: revamped arch overview
+
+learnings: ensured graphyn service branding; consolidated docs under main navigation; detailed api endpoints for developers. 

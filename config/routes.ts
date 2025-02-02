@@ -12,6 +12,5 @@ export const routes = {
 		settings: '/engine/settings',
 		memories: '/engine/memories'
 	},
-	howItWorks: '/how-it-works',
 	businessPlan: '/business-plan'
 } as const;

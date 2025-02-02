@@ -3,7 +3,12 @@
 import { motion } from 'framer-motion'
 import * as React from 'react'
 
-export function Brand() {
+interface BrandProps {
+  name?: string
+  description?: string
+}
+
+export function Brand({ name = "Graphyn", description }: BrandProps) {
   return (
     <motion.div
       className="flex items-center gap-2"
@@ -20,7 +25,12 @@ export function Brand() {
             <div className="h-3 w-3 rounded-sm bg-primary" />
           </div>
         </div>
-        <span className="font-bold">Graphyn</span>
+        <div className="flex flex-col">
+          <span className="font-bold">{name}</span>
+          {description && (
+            <span className="text-xs text-muted-foreground">{description}</span>
+          )}
+        </div>
       </div>
     </motion.div>
   )

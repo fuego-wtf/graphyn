@@ -9,23 +9,24 @@ const featureIcons = {
   dataControl: Shield,
 } as const
 
-const features = [
-  {
-    id: 'graphMapping',
-    title: 'Graph-Based Memory Mapping',
-    description: 'Our advanced graph mapping technology creates meaningful connections between memories, enabling more contextual and intelligent responses.'
-  },
-  {
-    id: 'llmDecisions',
-    title: 'Intelligent Decision Making',
-    description: 'Leverage state-of-the-art language models to make informed decisions based on accumulated knowledge and experience.'
-  },
-  {
-    id: 'dataControl',
-    title: 'Complete Data Control',
-    description: 'Maintain full control over your data with our secure and transparent memory management system.'
+interface FeaturesProps {
+  title: string
+  subtitle: string
+  items: {
+    graphMapping: {
+      title: string
+      description: string
+    }
+    llmDecisions: {
+      title: string
+      description: string
+    }
+    dataControl: {
+      title: string
+      description: string
+    }
   }
-] as const
+}
 
 const container = {
   hidden: { opacity: 0 },
@@ -40,7 +41,21 @@ const item = {
   show: { opacity: 1, y: 0 }
 }
 
-export function Features() {
+export function Features({ title, subtitle, items }: FeaturesProps) {
+  const features = [
+    {
+      id: 'graphMapping',
+      ...items.graphMapping
+    },
+    {
+      id: 'llmDecisions',
+      ...items.llmDecisions
+    },
+    {
+      id: 'dataControl',
+      ...items.dataControl
+    }
+  ] as const
   return (
     <section className="container py-24">
       <motion.div 
@@ -51,10 +66,10 @@ export function Features() {
         className="mx-auto max-w-2xl text-center"
       >
         <h2 className="bg-gradient-to-br from-primary via-primary/90 to-primary/70 bg-clip-text text-3xl font-bold tracking-tight text-transparent sm:text-4xl">
-          Powerful Features for Your AI Agents
+            {title}
         </h2>
         <p className="mt-6 text-lg leading-8 text-muted-foreground/90">
-          Build smarter AI solutions with our comprehensive suite of features designed for advanced memory management and intelligent decision making.
+            {subtitle}
         </p>
       </motion.div>
 

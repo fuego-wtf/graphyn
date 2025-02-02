@@ -28,7 +28,7 @@ export class TokenStore {
 	static async getToken(userId: string, tokenId: string) {
 		const key = `${this.PREFIX}${userId}:${tokenId}`;
 		const data = await get(key);
-		return data ? JSON.parse(data) : null;
+		return typeof data === 'string' ? JSON.parse(data) : null;
 	}
 
 	static async invalidateToken(token: string, payload: JWTPayload) {
@@ -56,7 +56,8 @@ export class TokenStore {
 		return storedToken !== null;
 	}
 
-	static async getActiveSession(userId: string) {
-		return get(`${this.SESSION_PREFIX}${userId}`);
+	static async getActiveSession(userId: string): Promise<string | null> {
+		const data = await get(`${this.SESSION_PREFIX}${userId}`);
+		return typeof data === 'string' ? data : null;
 	}
 }

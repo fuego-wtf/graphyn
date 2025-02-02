@@ -5,22 +5,17 @@ import { useAgentStore } from "@/store/agent"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Brain, MessageSquare, Settings } from "lucide-react"
 import Link from "next/link"
-
-interface Agent {
-  id: string
-  name: string
-  description: string
-  status: 'active' | 'inactive'
-}
+import type { Agent } from "@/types/agent"
 
 interface AgentOverviewProps {
   agents: Agent[]
 }
 
 export function AgentOverview({ agents }: AgentOverviewProps) {
-  const agent = useAgentStore((state: { agents: Agent[] }) => 
+  const agent = useAgentStore(state => 
     state.agents.find((a) => a.id === agents[0]?.id)
   )
+
 
   if (!agent) return null
 
@@ -29,7 +24,7 @@ export function AgentOverview({ agents }: AgentOverviewProps) {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold">{agent.name}</h2>
-          <p className="text-muted-foreground">{agent.description}</p>
+            <p className="text-muted-foreground">{agent.systemPrompt}</p>
         </div>
         <div className="flex items-center gap-2">
           <Link href={`/engine/agents/${agent.id}/edit`}>

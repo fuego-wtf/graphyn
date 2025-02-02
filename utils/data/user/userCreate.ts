@@ -21,10 +21,10 @@ export const userCreate = async ({
     });
     const result = db.insert(users).values({
       email,
+      userId: user_id,
       firstName: first_name,
       lastName: last_name,
       profileImageUrl: profile_image_url,
-      userId: user_id,
     }).returning();
 
     return result;

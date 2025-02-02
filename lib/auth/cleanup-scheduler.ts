@@ -1,7 +1,7 @@
 import { TokenCleanup } from './cleanup';
 
 export class CleanupScheduler {
-	private static cleanupInterval: NodeJS.Timer | null = null;
+	private static cleanupInterval: NodeJS.Timeout | null = null;
 	private static readonly CLEANUP_INTERVAL = 60 * 60 * 1000; // 1 hour
 
 	static startCleanupJob() {

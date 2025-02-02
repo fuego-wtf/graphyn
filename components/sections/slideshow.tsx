@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { ChevronLeft, ChevronRight, Moon, Sun, X } from "lucide-react"
 import Link from 'next/link'
 import { routes } from '@/config/routes'
@@ -88,13 +88,13 @@ export function Slideshow({ onClose }: { onClose: () => void }) {
   const [isDarkMode, setIsDarkMode] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
 
-  const goToNextSlide = () => {
+  const goToNextSlide = useCallback(() => {
     setCurrentSlide((prev) => Math.min(prev + 1, slides.length - 1))
-  }
+  }, [])
 
-  const goToPreviousSlide = () => {
+  const goToPreviousSlide = useCallback(() => {
     setCurrentSlide((prev) => Math.max(prev - 1, 0))
-  }
+  }, [])
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -112,7 +112,7 @@ export function Slideshow({ onClose }: { onClose: () => void }) {
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [currentSlide, onClose])
+  }, [goToNextSlide, goToPreviousSlide, onClose])
 
   useEffect(() => {
     const interval = setInterval(goToNextSlide, 5000);

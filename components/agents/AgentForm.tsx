@@ -87,21 +87,21 @@ export function AgentForm({ agent, onSuccess }: AgentFormProps) {
       const savedAgent = await response.json()
       setActiveAgent(savedAgent)
       
-      toast({
+        toast({
         title: `Agent ${agent ? "updated" : "created"}`,
         description: `Successfully ${agent ? "updated" : "created"} ${data.name}`
-      })
-      
-      onSuccess?.()
-      router.push(`/engine/agents/${savedAgent.id}`)
-    } catch (error) {
-      const message = error instanceof Error ? error.message : "Failed to save agent"
-      setError(message)
-      toast({
+        })
+        
+        onSuccess?.()
+        router.push(`/engine/agents/${savedAgent.id}`)
+      } catch (error) {
+        const message = error instanceof Error ? error.message : "Failed to save agent"
+        setError(message)
+        toast({
         title: "Error",
-        description: message,
-        variant: "destructive"
-      })
+        description: message
+        })
+
     } finally {
       setLoading(false)
     }
