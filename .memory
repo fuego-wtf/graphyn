@@ -1,8 +1,20 @@
 commit logs:
-- nav update: revised nav config
-- sidebar update: fixed sidebar links
-- backend api: updated backend docs
-- frontend api: updated frontend docs
-- arch docs: revamped arch overview
+- arch pages: added overview and app structure
+- getting started: created comprehensive guide
+- nav update: aligned sidebar with main nav
+- guides: added transform guide
+- guides: added realtime guide
+- guides: added widgets guide
+- docs: fixed empty pages
+- landing: created main landing page
+- api: added graphyn service api docs
+- docs: improved navigation structure
 
-learnings: ensured graphyn service branding; consolidated docs under main navigation; detailed api endpoints for developers. 
+learnings: created comprehensive guides for core features; improved api documentation coverage; ensured consistent navigation; created comprehensive landing page; added detailed api documentation; ensured consistent branding and messaging.
+
+[02/02/2024]
+- created private node repository under fuego-wtf org
+- initialized with gitignore and pushed initial codebase
+- learned: always check existing directories before creating new repos 
+
+[2024-03-19] suspense option is not valid in latest tanstack query client options, removed from provider config 
