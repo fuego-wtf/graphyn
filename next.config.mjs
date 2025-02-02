@@ -5,6 +5,7 @@ const nextConfig = {
 	experimental: {
 		esmExternals: true,
 	},
+	output: 'standalone',
 	webpack: (config, { isServer }) => {
 		if (!isServer) {
 			config.resolve.fallback = {
@@ -19,6 +20,7 @@ const nextConfig = {
 		return config;
 	},
 	images: {
+		unoptimized: true,
 		remotePatterns: [
 			{
 				protocol: "https",

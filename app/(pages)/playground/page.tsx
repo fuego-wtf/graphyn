@@ -47,7 +47,7 @@ interface CodeProps {
   children?: React.ReactNode;
 }
 
-export default function PlaygroundPage() {
+function PlaygroundContent() {
   const [model, setModel] = useState("deepseek:deepseek-reasoner");
   const [systemPrompt, setSystemPrompt] = useState("");
   const [expandedReasoning, setExpandedReasoning] = useState<number[]>([]);
@@ -431,5 +431,11 @@ export default function PlaygroundPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function PlaygroundPage() {
+  return (
+    <PlaygroundContent />
   );
 }

@@ -28,3 +28,9 @@ learnings: created comprehensive guides for core features; improved api document
 [2024-02-03 01:20] clerk auth package shows edge runtime warnings
 - warnings about setImmediate, MessageChannel, MessageEvent
 - safe to ignore when not using edge runtime 
+
+[2024-02-03 01:23] fixed SSR context issue in playground
+- wrapped playground page content with client component
+- updated provider to handle SSR properly by removing suspense and limiting retries
+- added unoptimized image config for static exports
+- root cause: context providers were being used during SSR but marked as client components 

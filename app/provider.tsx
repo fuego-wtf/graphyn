@@ -12,6 +12,7 @@ export default function Provider({ children }: { children: ReactNode }) {
             // Disable data prefetching for SSR
             staleTime: 5 * 1000,
             refetchOnWindowFocus: false,
+            retry: 1, // Limit retries for failed queries
           },
         },
       })
@@ -20,7 +21,7 @@ export default function Provider({ children }: { children: ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       {children}
-      <ReactQueryDevtools initialIsOpen={false} />
+      {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
     </QueryClientProvider>
   );
 }
