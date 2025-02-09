@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { RateLimiter } from '@/lib/auth/rate-limiter'
+import { getAuth } from '@clerk/nextjs/server'
 
 // Create specific rate limiters for different auth operations
 const loginLimiter = new RateLimiter({
@@ -16,7 +17,13 @@ const authLimiter = new RateLimiter({
 })
 
 export async function authMiddleware(request: NextRequest) {
-	const ip = request.ip || 'anonymous'
+	// Only proceed with rate limiting for API routes
+	if (!request.nextUrl.pathname.startsWith('/api/')) {
+		return null;
+	}
+
+	const forwarded = request.headers.get('x-forwarded-for')
+	const ip = forwarded ? forwarded.split(',')[0].trim() : 'anonymous'
 	const path = request.nextUrl.pathname
 	const identifier = `${ip}:${path}`
 
@@ -36,10 +43,12 @@ export async function authMiddleware(request: NextRequest) {
 		})
 	}
 
-	// Add rate limit headers to the request for the route handler
-	request.headers.set('X-RateLimit-Limit', limiter.config.max.toString())
-	request.headers.set('X-RateLimit-Remaining', result.remaining.toString())
-	request.headers.set('X-RateLimit-Reset', result.resetTime.toString())
+	const response = NextResponse.next()
+	
+	// Add rate limit headers to the response instead of the request
+	response.headers.set('X-RateLimit-Limit', limiter.config.max.toString())
+	response.headers.set('X-RateLimit-Remaining', result.remaining.toString())
+	response.headers.set('X-RateLimit-Reset', result.resetTime.toString())
 
-	return null
+	return response
 }

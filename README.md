@@ -1,32 +1,25 @@
 # Graphyn
 
-A modern AI agent platform with graph-based memory and context-aware interactions.
+A lightweight API interface for backend services, providing a simple gateway for ai agent interactions.
+
+## Overview
+
+This application serves as an api interface for the backend, focusing solely on api routes and minimal ui components. It is not a fullstack application.
 
 ## Features
 
-### Core Platform
+### API Gateway
 
-- 🧠 **AI Agents** - Configurable agents with memory and context
-- 📊 **Graph Memory** - Relationship-based memory storage
-- 🔄 **Event System** - Real-time event processing
-- 🎮 **Playground** - Interactive agent testing environment
+- efficient routing with next.js app router
+- utilizes route handlers in app/api
+- built with typescript for type safety
 
 ### Technology Stack
 
-- ⚡ **Next.js 14** - App Router with Server Components
-- 🎨 **Tailwind CSS** - Custom UI components and animations
-- 📘 **TypeScript** - Full type safety
-- 🔒 **Authentication** - Clerk + JWT
-- 🗄️ **Database** - PostgreSQL + Drizzle ORM
-- 📈 **State** - Zustand + React Query
-
-### Developer Experience
-
-- 🎭 **UI Components** - Shadcn/ui + Custom Components
-- 🌓 **Theming** - Dark/Light mode with custom colors
-- 📱 **Responsive** - Mobile-first design
-- 🚀 **Performance** - Optimized routing and rendering
-- 🧪 **Testing** - Jest + React Testing Library
+- ⚡ next.js 15 – app router with server components
+- 🎨 tailwind css – minimal ui stubs if needed
+- 📘 typescript – full type safety
+- 🗄️ api interface – backend integration via route handlers
 
 ## Getting Started
 
@@ -47,14 +40,13 @@ cp .env.template .env
 3. Configure environment variables:
 
 ```env
-# Auth (Clerk)
+# backend api
+API_BASE_URL=
+
+# additional config
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
 CLERK_SECRET_KEY=
-
-# Database
 DATABASE_URL=
-
-# AI
 OPENAI_API_KEY=
 ```
 
@@ -64,20 +56,23 @@ OPENAI_API_KEY=
 yarn dev
 ```
 
+5. Build for production:
+
+```bash
+yarn build
+```
+
 ## Project Structure
 
 ```
-├── app/                  # Next.js app directory
-│   ├── (auth)/          # Auth routes
-│   ├── (pages)/         # Main pages
-│   └── api/             # API routes
-├── components/          # React components
-│   ├── agents/         # Agent components
-│   ├── ui/             # UI components
-│   └── visualization/  # Data visualization
-├── lib/                # Core utilities
-├── store/             # State management
-└── types/             # TypeScript types
+├── app/                  # next.js app directory with api route handlers
+│   ├── api/              # api routes
+│   ├── layout.tsx
+│   └── page.tsx
+├── components/           # minimal ui components (if needed)
+├── lib/                  # core utilities
+├── store/                # state management (stubbed if necessary)
+└── types/                # typescript types
 ```
 
 ## Documentation

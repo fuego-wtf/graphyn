@@ -60,3 +60,4 @@ const nextConfig = {
 const withMDX = createMDX({});
 
 export default withMDX(nextConfig);
+

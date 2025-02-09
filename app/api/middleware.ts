@@ -3,7 +3,9 @@ import type { NextRequest } from 'next/server'
 import { rateLimiters } from '@/lib/auth/rate-limiter'
 
 export async function apiMiddleware(request: NextRequest) {
-	const ip = request.ip || 'anonymous'
+	const forwarded = request.headers.get('x-forwarded-for')
+	const realIp = request.headers.get('x-real-ip')
+	const ip = forwarded ? forwarded.split(',')[0].trim() : realIp || 'anonymous'
 	const path = request.nextUrl.pathname
 	const identifier = `${ip}:${path}`
 
@@ -26,12 +28,11 @@ export async function apiMiddleware(request: NextRequest) {
 		})
 	}
 
-	// Continue processing the request
-	// The actual response will be created by the route handler
-	// We'll attach rate limit info to the request for the route handler to use
-	request.headers.set('X-RateLimit-Limit', limiter.config.max.toString())
-	request.headers.set('X-RateLimit-Remaining', result.remaining.toString())
-	request.headers.set('X-RateLimit-Reset', result.resetTime.toString())
+	const response = NextResponse.next();
+	response.headers.set('X-RateLimit-Limit', limiter.config.max.toString());
+	response.headers.set('X-RateLimit-Remaining', result.remaining.toString());
+	response.headers.set('X-RateLimit-Reset', result.resetTime.toString());
 
-	return null
+	return response
 }
+

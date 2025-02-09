@@ -1,7 +1,22 @@
 'use client'
 
 import { Sidebar } from "@/components/sidebar"
-import { ConversationProvider } from "@/components/engine/conversation-context"
+import dynamic from 'next/dynamic'
+import { StoreProvider } from "@/components/providers/store-provider"
+import { Suspense } from 'react'
+import { Loader2 } from 'lucide-react'
+
+const ConversationProvider = dynamic(
+	() => import('@/components/engine/conversation-context').then(mod => mod.ConversationProvider),
+	{ 
+		ssr: false,
+		loading: () => (
+			<div className="flex items-center justify-center h-full">
+				<Loader2 className="h-8 w-8 animate-spin" />
+			</div>
+		)
+	}
+)
 
 export default function EngineLayout({
 	children,
@@ -12,9 +27,17 @@ export default function EngineLayout({
 		<div className="min-h-screen flex">
 			<Sidebar />
 			<main className="flex-1">
-				<ConversationProvider>
-					{children}
-				</ConversationProvider>
+				<StoreProvider>
+					<Suspense fallback={
+						<div className="flex items-center justify-center h-full">
+							<Loader2 className="h-8 w-8 animate-spin" />
+						</div>
+					}>
+						<ConversationProvider>
+							{children}
+						</ConversationProvider>
+					</Suspense>
+				</StoreProvider>
 			</main>
 		</div>
 	)

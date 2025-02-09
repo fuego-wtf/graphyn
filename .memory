@@ -9,8 +9,9 @@ commit logs:
 - landing: created main landing page
 - api: added graphyn service api docs
 - docs: improved navigation structure
+- log development rules
 
-learnings: created comprehensive guides for core features; improved api documentation coverage; ensured consistent navigation; created comprehensive landing page; added detailed api documentation; ensured consistent branding and messaging.
+learnings: created comprehensive guides for core features; improved api documentation coverage; ensured consistent navigation; created comprehensive landing page; added detailed api documentation; ensured consistent branding and messaging; added developmentRules variable to capture all development rules in one place
 
 [02/02/2024]
 - created private node repository under fuego-wtf org
@@ -34,3 +35,74 @@ learnings: created comprehensive guides for core features; improved api document
 - updated provider to handle SSR properly by removing suspense and limiting retries
 - added unoptimized image config for static exports
 - root cause: context providers were being used during SSR but marked as client components 
+
+[2024-02-03 01:30] fix: added theme provider to fix context error
+- issue: useContext error in playground page due to missing theme provider
+- solution: wrapped app with ThemeProvider in provider.tsx
+- learning: always ensure theme provider is properly set up when using dark mode components 
+
+[2024-03-19 14:00] fix: removed runtime prop from ClerkProvider
+- removed unnecessary runtime="nodejs" prop from ClerkProvider in app/layout.tsx
+- this prop is not supported in latest versions of @clerk/nextjs
+- the provider automatically handles the runtime configuration 
+
+[2024-04-27 16:32] fix error rendering: removed use client from error and not-found
+[2024-04-27 16:32] learning: error pages should be server components to avoid missing client context 
+
+[2024-04-27 16:45] fix: add use client directive
+[2024-04-27 16:45] learning: error and not-found need to be client components for interactive error handling 
+
+[2024-04-27 16:50] fix: split error component
+[2024-04-27 16:50] learning: wrap interactive error ui in a client component to avoid useContext creep during prerender 
+
+[2024-04-27 16:55] fix: dynamic GET and middleware ip fix
+[2024-04-27 16:55] learning: dynamic route handlers now require promise-wrapped params, and request.ip should be replaced with headers.get('x-forwarded-for') 
+
+[2024-04-27 17:00] fix: corrected syntax error in error.tsx
+[2024-04-27 17:00] fix: updated middleware to ensure correct typing for req 
+
+[2024-04-27 17:10] fix: added use client directive to error page
+[2024-04-27 17:10] learning: error page must be a client component to support interactive hooks 
+
+[2024-04-27 17:15] fix: dynamic api & client directive
+[2024-04-27 17:15] learning: api routes require promise‑wrapped params; client pages need "use client" for hooks 
+
+static route remains for sign-in, catch-all removed or renamed 
+
+/* commit: cursorrules created */
+/* log: created .cursorrules file with nextjs app router guidelines and project structure instructions. learnings: specific best practices captured for server and client component handling, file structure details, and adherence to nextjs conventions. */ 
+
+/* commit: restore scroll area */
+
+// log details:
+// restored scroll area reset to use radix ui primitives
+// learned: ensure correct component usage when simplifying components 
+
+restore tooltip functionality
+learning: reintroduced radix ui primitives 
+
+fix rate limit headers
+
+learned: using NextResponse.next ensures updated rate limit headers propagate through middleware pipeline. 
+
+// commit: fix middleware headers
+// learning: replaced immutable request.headers modification with mutable response.headers by using NextResponse.next(). fix params type
+learning: removed promise from params type and simplified destructuring in api routes
+postcss config fix
+learning: created valid postcss config with plugins key
+
+commit logs:
+- update cursorrules steps
+
+learnings: added implementation steps to .cursorrules file
+
+commit logs:
+- log comprehensive guide
+
+learnings: added comprehensiveGuide variable to .cursorrules file to capture full development philosophies, standards, and crucial service details
+
+[2024-05-01] commit: update cursorrules file
+learning: updated markdown formatting and appended additional info
+
+// commit: fix route types
+// build log: verified folder structure, tsconfig, next.config.mjs and env are valid. next build failed due to route.ts GET/PUT/DELETE types; fixed by removing explicit type annotations and casting params. learning: next route handlers require implicit any with casts.

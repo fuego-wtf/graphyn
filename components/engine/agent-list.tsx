@@ -9,12 +9,12 @@ import Link from "next/link"
 
 export function AgentList() {
   const [searchTerm, setSearchTerm] = useState("")
-  const agents = useAgentStore((state) => state.agents)
+  const agents = useAgentStore((state: any) => state.agents)
 
   const filteredAgents = agents.filter(
-    (agent) =>
+    (agent: any) =>
       agent.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      agent.id.toLowerCase().includes(searchTerm.toLowerCase()),
+      agent.id.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
   return (
@@ -41,7 +41,7 @@ export function AgentList() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filteredAgents.map((agent) => (
+            {filteredAgents.map((agent: any) => (
               <TableRow key={agent.id} className="hover:bg-muted/50 dark:hover:bg-gray-800/50">
                 <TableCell className="font-medium">{agent.name}</TableCell>
                 <TableCell className="font-mono text-xs text-muted-foreground">{agent.id}</TableCell>

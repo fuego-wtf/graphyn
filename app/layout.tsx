@@ -1,9 +1,12 @@
 import './globals.css'
 import { fontSans } from '@/lib/fonts'
-import { ClerkProvider } from '@clerk/nextjs'
-import { Analytics } from '@vercel/analytics/react'
-import { ThemeProvider } from '@/components/theme-provider'
-import Provider from './provider'
+import ClientProviders from './client-providers'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'graphyn',
+  description: 'graphyn - your ai agent platform',
+}
 
 export default function RootLayout({
   children,
@@ -11,21 +14,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body>
-        <ClerkProvider>
-          <Provider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-            <Analytics />
-          </ThemeProvider>
-          </Provider>
-        </ClerkProvider>
+    <html lang="en" suppressHydrationWarning>
+      <head />
+      <body className={fontSans.className}>
+        <ClientProviders>
+          {children}
+        </ClientProviders>
       </body>
     </html>
   )

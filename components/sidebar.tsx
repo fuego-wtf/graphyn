@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Brain, PlayCircle, BookOpen, LogOut, User } from "lucide-react"
-import { SignOutButton, useUser } from "@clerk/nextjs"
+import { SignOutButton, useUser, UserButton } from "@clerk/nextjs"
 import { UserProfile } from "./user-profile"
 
 export function Sidebar() {
@@ -56,9 +56,25 @@ export function Sidebar() {
 				</div>
 			</ScrollArea>
 			<div className="border-t p-4">
-				{user && <UserProfile />}
+				{user && (
+					<div className="flex items-center gap-4">
+						<UserButton
+							afterSignOutUrl="/"
+							appearance={{
+								elements: {
+									avatarBox: "h-8 w-8",
+									userButtonPopoverCard: "shadow-none border",
+								}
+							}}
+						/>
+						<SignOutButton>
+							<Button variant="ghost" size="icon">
+								<LogOut className="h-4 w-4" />
+							</Button>
+						</SignOutButton>
+					</div>
+				)}
 			</div>
-
 		</div>
 	)
 }

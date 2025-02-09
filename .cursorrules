@@ -1,0 +1,182 @@
+# How do we code in this project?
+
+## Next.js App Router Best Practices
+
+- use server components by default
+- implement client components only when necessary
+- utilize the new file-based routing system
+- use layout.tsx for shared layouts
+- implement loading.tsx for loading states
+- use error.tsx for error handling
+- utilize route handlers for api routes
+- place ThemeProvider only in root layout to avoid context conflicts
+- keep auth pages (sign-in, sign-up) as client components with minimal wrapping to avoid context conflicts
+- keep error pages (error, not-found, global-error) at root level as client components
+- use feature-specific layouts for pages requiring theme context to avoid root layout conflicts
+
+## Project Folder Structure
+
+app/
+  api/              # API route handlers
+  layout.tsx
+  page.tsx
+components/
+  ui/               # minimal ui stubs if needed
+lib/
+  utility functions
+styles/
+  css modules or tailwind css
+public/
+  static assets
+
+## Additional Instructions
+
+1. use typescript for type safety
+2. implement proper metadata for seo using next.js metadata api
+3. utilize next/image component for optimized images
+4. use css modules or tailwind css for styling
+5. implement proper error boundaries and error.tsx for error handling
+6. follow next.js naming conventions for special files
+7. use environment variables for configuration
+8. design app as api interface only; avoid fullstack rendering
+9. use route handlers in app/api for backend communication
+
+## Implementation Steps
+
+1. install dependencies & setup environment
+2. verify folder structure meets guidelines
+3. implement shared layouts in layout.tsx
+4. add loading.tsx & error.tsx for states
+5. build api routes under app/api as per design
+6. integrate metadata and Next/Image for optimization
+7. test with Next.js App Router conventions
+
+## Development Rules (Consolidated Every Development Rule)
+
+router:
+
+- ${nextjsAppRouterBestPractices.join("\n- ")}
+
+folder structure:
+
+- ${folderStructure.trim().split("\n").join("\n- ")}
+
+instructions:
+
+- ${additionalInstructions.trim().split("\n").join("\n- ")}
+
+steps:
+
+- ${implementationSteps.trim().split("\n").join("\n- ")}
+
+## Comprehensive Guide Containing Best Practices, Conventions, and Standards
+
+Development Philosophy:
+
+- write clean, maintainable, and scalable code
+- follow SOLID principles and favor functional & declarative patterns
+- emphasize type safety, static analysis, and component-driven development
+
+Code Implementation Guidelines:
+Planning Phase:
+
+- begin with step-by-step planning and detailed pseudocode
+- document component architecture, data flow, and edge cases
+
+Code Style:
+
+- use tabs for indentation and single quotes for strings
+- omit semicolons (unless needed), eliminate unused variables
+- add spaces after keywords, around infix operators and after commas
+- use strict equality (===) and proper curly braces for multi-line blocks
+- keep line length to 80 characters and use trailing commas in multiline literals
+
+Naming Conventions:
+
+- use PascalCase for components, type definitions, and interfaces
+- use kebab-case for directory and file names, and camelCase for variables, functions, hooks, and props
+- use UPPERCASE for environment variables, constants, and global configurations
+- prefix event handlers with 'handle' and boolean variables with 'is' or 'has'
+- prefix custom hooks with 'use'
+
+React Best Practices:
+Component Architecture:
+
+- use functional components with TypeScript interfaces; extract reusable logic into custom hooks
+- employ React.memo, useCallback, and useMemo for performance optimizations
+- avoid inline function definitions in JSX and always provide proper cleanup in useEffect
+
+Next.js Best Practices:
+Core Concepts:
+
+- utilize the App Router for routing and proper metadata management
+- use caching strategies and implement error boundaries
+Components and Features:
+- use Next.js built-in components (Image, Link, Script, Head)
+- default to server components; use 'use client' only for interactivity or browser APIs
+
+TypeScript Implementation:
+
+- enable strict mode, define clear interfaces, use generics and utility types (Partial, Pick, Omit)
+
+UI and Styling:
+
+- use Tailwind CSS with mobile-first, responsive design and dark mode support
+- integrate Shadcn UI and Radix UI primitives for accessible, modular components
+
+State Management:
+
+- use useState/useReducer for local state and Redux Toolkit for global state
+- separate concerns by feature and use selectors for state encapsulation
+
+Error Handling and Testing:
+
+- use Zod for form validation, implement error boundaries and log errors (e.g., to Sentry)
+- employ Jest and React Testing Library for unit/integration tests following Arrange-Act-Assert
+
+Accessibility & Security:
+
+- use semantic HTML, ARIA attributes and ensure keyboard navigation and color contrast
+- sanitize inputs (e.g., with DOMPurify) and use proper authentication methods
+
+Internationalization & Documentation:
+
+- use next-i18next for translations, proper locale detection and formatting
+- document all public functions, classes, and interfaces using JSDoc in clear markdown format
+
+App Structure (@app):
+
+- the /app directory holds the root layout, page components, and API routes.
+- server components are used by default with 'use client' added only when needed.
+
+Authentication:
+
+- handled via Clerk (@clerk/nextjs) with JWT tokens generated and verified (see generateToken/verifyToken)
+- tokens are stored in Redis via TokenStore; auth middleware applies rate-limiting and verifies auth on API routes
+
+Pages & Routing:
+
+- pages live in /app and follow Next.js file-based routing
+- error pages (404, 500) and special pages (sign-in, sign-up) are dedicated components in /app/(auth) or /app/(pages)
+
+Context & Global State:
+
+- context is maintained using React Context API (e.g., ConversationProvider, StoreProvider)
+
+Crucial Services (@package.json):
+
+- @clerk/nextjs: authentication and user management
+- next & react: core framework and UI libraries
+- tailwindcss: styling framework
+- zod: schema validation for forms/API payloads
+- redis (@upstash/redis): caching tokens and rate-limiting data
+- ts-node, eslint, and prettier for development tooling and code quality
+
+module.exports = {
+  nextjsAppRouterBestPractices,
+  folderStructure,
+  additionalInstructions,
+  implementationSteps,
+  developmentRules,
+  comprehensiveGuide,
+};

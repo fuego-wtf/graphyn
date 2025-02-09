@@ -4,15 +4,18 @@ import { getAgent, saveAgent, deleteAgent } from '@/lib/redis/client'
 import type { NextRequest } from 'next/server'
 import type { Agent } from '@/types/agent'
 
-export async function GET(req: NextRequest, { params }: { params: { agentId: string } }) {
+export async function GET(request: NextRequest, { params }: { params: any }): Promise<NextResponse> {
+  const agentId = Array.isArray(params.agentId) ? params.agentId[0] : params.agentId;
   try {
-    const token = req.headers.get('authorization')?.split(' ')[1]
+    const token = request.headers.get('authorization')?.split(' ')[1]
     const payload = await verifyAuth(token)
     if (!payload) {
       return new NextResponse('Unauthorized', { status: 401 })
     }
 
-    const agent = await getAgent(params.agentId)
+    const agent = await getAgent(agentId)
+
+    
     if (!agent || agent.userId !== payload.sub) {
       return new NextResponse('Not Found', { status: 404 })
     }
@@ -27,20 +30,24 @@ export async function GET(req: NextRequest, { params }: { params: { agentId: str
   }
 }
 
-export async function PUT(req: NextRequest, { params }: { params: { agentId: string } }) {
+// Similar changes for PUT and DELETE handlers
+export async function PUT(request: NextRequest, { params }: { params: any }) {
+  const agentId = Array.isArray(params.agentId) ? params.agentId[0] : params.agentId;
   try {
-    const token = req.headers.get('authorization')?.split(' ')[1]
+    const token = request.headers.get('authorization')?.split(' ')[1]
     const payload = await verifyAuth(token)
     if (!payload) {
       return new NextResponse('Unauthorized', { status: 401 })
     }
 
-    const existingAgent = await getAgent(params.agentId)
+    const existingAgent = await getAgent(agentId)
+
+    
     if (!existingAgent || existingAgent.userId !== payload.sub) {
       return new NextResponse('Not Found', { status: 404 })
     }
 
-    const data = await req.json()
+    const data = await request.json()
     const updatedAgent: Agent = {
       ...existingAgent,
       name: data.name || existingAgent.name,
@@ -64,20 +71,23 @@ export async function PUT(req: NextRequest, { params }: { params: { agentId: str
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { agentId: string } }) {
+export async function DELETE(request: NextRequest, { params }: { params: any }) {
+  const agentId = Array.isArray(params.agentId) ? params.agentId[0] : params.agentId;
   try {
-    const token = req.headers.get('authorization')?.split(' ')[1]
+    const token = request.headers.get('authorization')?.split(' ')[1]
     const payload = await verifyAuth(token)
     if (!payload) {
       return new NextResponse('Unauthorized', { status: 401 })
     }
 
-    const agent = await getAgent(params.agentId)
+    const agent = await getAgent(agentId)
+
+    
     if (!agent || agent.userId !== payload.sub) {
       return new NextResponse('Not Found', { status: 404 })
     }
 
-    await deleteAgent(params.agentId, payload.sub)
+    await deleteAgent(agentId, payload.sub)
     return new NextResponse(null, { status: 204 })
   } catch (error) {
     console.error('[AGENT_DELETE]', error)

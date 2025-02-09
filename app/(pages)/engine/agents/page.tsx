@@ -1,8 +1,23 @@
+'use client'
+
 import { Button } from "@/components/ui/button"
-import { Plus } from "lucide-react"
+import { Plus, Loader2 } from "lucide-react"
 import Link from "next/link"
 import { routes } from "@/config/routes"
-import { AgentList } from "@/components/agents/AgentList"
+import dynamic from 'next/dynamic'
+import { Suspense } from 'react'
+
+const AgentList = dynamic(
+	() => import('@/components/agents/AgentList').then(mod => mod.AgentList),
+	{ 
+		ssr: false,
+		loading: () => (
+			<div className="flex items-center justify-center p-8">
+				<Loader2 className="h-8 w-8 animate-spin" />
+			</div>
+		)
+	}
+)
 
 export default function AgentsPage() {
 	return (
@@ -20,7 +35,13 @@ export default function AgentsPage() {
 				</Link>
 			</div>
 			
-			<AgentList />
+			<Suspense fallback={
+        <div className="flex items-center justify-center p-8">
+          <Loader2 className="h-8 w-8 animate-spin" />
+        </div>
+      }>
+        <AgentList />
+      </Suspense>
 		</div>
 	)
 }
